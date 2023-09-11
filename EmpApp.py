@@ -10,7 +10,7 @@ app = Flask(__name__)
 bucket = custombucket
 region = customregion
 
-db_conn = mysql.connector.Connection(
+db_conn = mysql.connector.connect(
     host=customhost,
     port=3306,
     user=customuser,
