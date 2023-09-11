@@ -1,6 +1,6 @@
 customhost = "cc-assg.cs98yicshm5s.us-east-1.rds.amazonaws.com"
 customuser = "aws_user"
 custompass = "Bait3273"
-customdb = "student"
+customdb = "assg"
 custombucket = "chongxinyi-bucket"
 customregion = "us-east-1"
