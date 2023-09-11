@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-# from pymysql import connections
 import mysql.connector
 import os
 import boto3
@@ -15,7 +14,7 @@ db_conn = mysql.connector.connect(
     port=3306,
     user=customuser,
     password=custompass,
-    db=studentdb
+    db=customdb
 )
 output = {}
 table = 'employee'
