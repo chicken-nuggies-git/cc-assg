@@ -15,7 +15,7 @@ db_conn = mysql.connector.connect(
     port=3306,
     user=customuser,
     password=custompass,
-    db=customdb
+    db=studentdb
 )
 output = {}
 table = 'employee'
