@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import mysql.connector
 import os
 import boto3
@@ -31,6 +31,44 @@ def about():
 @app.route("/student")
 def student():
     return render_template('student.html')
+
+@app.route("/adminLogin")
+def adminLogin(msg=""):
+    return render_template('adminLogin.html', msg=msg)
+
+@app.route("/login", methods=['GET'])
+def login():
+    # Get user input email and password from HTML form
+    email = request.args.get('email')
+    password = request.args.get('password')
+
+    # Console log for debugging
+    print(email)
+    print(password)
+
+    # Check if email exists in accounts table in out database
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM admin WHERE email = %s', (email,))
+    account = cursor.fetchone()
+
+    # Console log for debugging
+    print(account) # If account not exists, account = None
+
+    # If account exists in accounts table in out database
+    if account:
+        # Check if password correct
+        if password == account[2]:
+            # If password correct, redirect to admin page
+            return redirect(url_for('admin'))
+        else:
+            # If password incorrect, redirect to admin login page with error message
+            msg = 'Account exists but password incorrect'
+            return redirect(url_for('adminLogin', msg=msg))
+    # If account not exists in accounts table in out database
+    else:
+        msg = 'Account does not exists'
+        return redirect(url_for('adminLogin', msg=msg))
+    
 
 @app.route("/xy")
 def xyPortfolio():
